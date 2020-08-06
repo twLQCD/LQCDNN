@@ -12,6 +12,7 @@ from scipy.sparse.linalg import eigs
 if __name__ == '__main__':
     
     nx, nt, N, vol, beta, mass = params.lattice_params()
+    #print out params
     """
     nmd, tau = params.moldyn_params()
     nmc, warmup, num_warmup = params.HMC_params()
