@@ -2,8 +2,9 @@
 """
 Created on Thu Aug  6 07:59:39 2020
 
-@author: Admin
+@author: twQCD
 """
+
 class Latparams:
     def __init__(self, xdim, tdim, coupling, mass):
         self.nx = xdim
@@ -31,23 +32,23 @@ class MDparams:
 
 
 class Gauge:
-	def __init__(self, index, val):
-		self.idx = index
-		self.u = val
-	
-	def x(self, xdim):
-		return (self.idx % xdim)
-		
-	def t(self, tdim):
-		return (self.idx // tdim)
+    def __init__(self, xi, ti, val, nx, nt):
+        self.x = xi
+        self.t = ti
+        self.u = val
+        self.nx = nx
+        self.nt = nt
+        
+    def idx(self, xi, ti):
+        return (xi + self.nx*ti)
     
 class Field:
-    def __init__(self, index, val):
-        self.idx = index
+    def __init__(self, xi, ti, val, nx, nt):
+        self.x = xi
+        self.t = ti
         self.site = val
+        self.nx = nx
+        self.nt = nt
         
-    def x(self, xdim):
-        return (self.idx % xdim)
-    
-    def t(self, tdim):
-        return (self.idx // tdim)
+    def idx(self, xi, ti):
+        return (xi + self.nx*ti)

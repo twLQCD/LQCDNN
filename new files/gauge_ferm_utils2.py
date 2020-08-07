@@ -2,39 +2,46 @@
 """
 Created on Thu Aug  6 07:59:36 2020
 
-@author: Admin
+@author: twLQCD
 """
 import numpy as np
 import latclasses as lc
 
 
 def setlinks(p):
-    gaugelinks = list()
-    for i in range(p.N(p.nx, p.nt)):
-        gaugelinks.append(lc.Gauge(i, []))
-
+    gaugelinks = np.empty([p.nx,p.nt], dtype=object)
+    for i in range(p.nt):
+        for j in range(p.nx):
+            gaugelinks[j][i] = lc.Gauge(j, i, [], p.nx, p.nt)
+            
     return gaugelinks
 
 def setfield(p):
-    field = list()
-    for i in range(p.N(p.nx, p.nt)):
-        field.append(lc.Field(i, []))
-        
+    field = np.empty([p.nx,p.nt], dtype=object)
+    for i in range(p.nt):
+        for j in range(p.nx):
+            field[j][i] = lc.Field(j, i, [], p.nx, p.nt)
+            
     return field
+       
+def random_gauge(gaugelinks, p):
+    for i in range(p.nt):
+        for j in range(p.nx):
+            gaugelinks[j][i].u = 2 * np.pi * np.random.uniform(0, 1, (2,1))
+            gaugelinks[j][i].u = np.cos(gaugelinks[j][i].u) + np.sin(gaugelinks[j][i].u) * 1j
 
-def random_field(field):
-    for sites in field:
-        sites.site = np.random.uniform(0, 1, (2,1)) + np.random.uniform(0, 1, (2,1)) * 1j
-
-def random_gauge(gaugelinks):
-    for links in gaugelinks:
-        links.u = 2 * np.pi * np.random.uniform(0, 1, (1,1))
-        links.u = np.cos(links.u) + np.sin(links.u) * 1j
-
-def unit_links(gaugelinks):
-    for links in gaugelinks:
-        links.u = 1
-        
-def unit_field(field):
-    for sites in field:
-        sites.site = 1
+def random_field(field, p):
+    for i in range(p.nt):
+        for j in range(p.nx):
+           field[j][i].site = np.random.uniform(0, 1, (2,1)) + np.random.uniform(0, 1, (2,1)) * 1j
+      
+def unit_links(gaugelinks, p):
+    for i in range(p.nt):
+        for j in range(p.nx):
+            gaugelinks[j][i].u = [1.0, 1.0]
+            
+def unit_field(field, p):
+    for i in range(p.nt):
+        for j in range(p.nx):
+            field[j][i].site = [1.0, 1.0]
+            
