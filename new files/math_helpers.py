@@ -7,7 +7,7 @@ Created on Fri Aug  7 16:44:44 2020
 import numpy as np
 import math
 
-def norm(psi, chi, p):
+def dot(psi, chi, p):
     scalar = 0.0
     for i in range(p.nt):
         for j in range(p.nx):
