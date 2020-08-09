@@ -45,3 +45,27 @@ def unit_field(field, p):
         for j in range(p.nx):
             field[j][i].site = [1.0, 1.0]
             
+def zero_field(field, p):
+    for i in range(p.nt):
+        for j in range(p.nx):
+            field[j][i].site = [0.0, 0.0]
+            
+            
+def copyfield(infield, p):
+    outfield = setfield(p)
+    for i in range(p.nt):
+        for j in range(p.nx):
+            for k in range(2):
+                outfield[j][i].site[k] = infield[j][i].site[k]
+    
+    return outfield
+
+def copygauge(ingauge, p):
+    outgauge = setlinks(p)
+    for i in range(p.nt):
+        for j in range(p.nx):
+            for k in range(2):
+                outgauge[j][i].u[k] = ingauge[j][i].u[k]
+                
+    return outgauge
+            
